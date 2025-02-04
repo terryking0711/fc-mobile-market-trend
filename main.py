@@ -22,4 +22,4 @@ for player,code in zip(df["player name"],df['code']):
 # 將 prices 列表中的值賦給 df[current_time] 列
 df[current_time] = prices
 df.to_csv(r"diagrame_analsis.py", index=False)
-print("Prices updated.")
+print(df)
