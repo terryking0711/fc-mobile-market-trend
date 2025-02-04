@@ -6,7 +6,7 @@ import matplotlib.ticker as mtick
 # Load the CSV file
 file_path = r"fc mobile player prices.csv"  # Replace with your actual file path
 df = pd.read_csv(file_path)
-
+print(df)
 # Preprocess data to make it suitable for plotting
 # Convert the wide format to a long format for easier plotting
 df_long = df.melt(id_vars=['player name', 'overall', 'code'],
