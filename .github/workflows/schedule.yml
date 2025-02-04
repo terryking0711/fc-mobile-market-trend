@@ -19,7 +19,7 @@ jobs:
           python-version: '3.x'  # 設定 Python 版本
 
       - name: Install dependencies
-        run: pip install pandas numpy requests matplotlib bs4 time datetime  # 直接安裝 pandas
+        run: pip install pandas numpy requests matplotlib bs4  datetime  # 直接安裝 pandas
 
       - name: get player price
         run: python main.py  # 執行 Python 腳本
