@@ -1,0 +1,29 @@
+name: Run Python Script Every 2 Hours
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'  # 每 2 小時執行一次
+  workflow_dispatch:  # 允許手動觸發
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4  # 檢出程式碼
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # 設定 Python 版本
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt || true  # 安裝依賴，若無則跳過
+
+      - name: get player price
+        run: python main.py  # 執行 Python 腳本
+
+      - name: create image
+        run: python diagrame_analsis.py  # 執行 Python 腳本
+
