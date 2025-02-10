@@ -19,11 +19,26 @@ jobs:
           python-version: '3.x'  # 設定 Python 版本
 
       - name: Install dependencies
-        run: pip install pandas numpy requests matplotlib bs4  datetime  # 直接安裝 pandas
+        run: pip install pandas numpy requests matplotlib beautifulsoup4  # 修正錯誤的 bs4 和 datetime
 
-      - name: get player price
+      - name: Get player price
         run: python main.py  # 執行 Python 腳本
 
-      - name: create image
+      - name: Create image
         run: python diagrame_analsis.py  # 執行 Python 腳本
 
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Auto-update from GitHub Actions" || echo "No changes to commit"
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload generated image
+        uses: actions/upload-artifact@v3
+        with:
+          name: generated-diagram
+          path: diagram.png  # 確保這是正確的圖片路徑
