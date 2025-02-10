@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 import matplotlib.ticker as mtick
+import matplotlib.image as mpimg
+
 #　pip freeze > requirements.txt
 # Load the CSV file
 print("start_loading")
@@ -44,3 +46,15 @@ for player in df_long['player name'].unique():
     file_name = f'{player}_price_trend.png'
     plt.savefig(os.path.join(output_dir, file_name))
     plt.close()
+
+
+# 顯示所有生成的圖片
+for player in df_long['player name'].unique():
+    file_path = os.path.join(output_dir, f'{player}_price_trend.png')
+    if os.path.exists(file_path):
+        img = mpimg.imread(file_path)
+        plt.figure(figsize=(10, 6))
+        plt.imshow(img)
+        plt.axis('off')  # 移除坐標軸
+        plt.title(f'Price Trend for {player}')
+        plt.show()
