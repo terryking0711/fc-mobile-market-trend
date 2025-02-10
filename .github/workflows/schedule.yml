@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4  # 檢出程式碼
+        with:
+          persist-credentials: true  # 保持身份驗證以推送變更
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -19,7 +21,10 @@ jobs:
           python-version: '3.x'  # 設定 Python 版本
 
       - name: Install dependencies
-        run: pip install pandas numpy requests matplotlib beautifulsoup4  # 修正錯誤的 bs4 和 datetime
+        run: pip install pandas numpy requests matplotlib bs4  # 直接安裝 pandas
+
+      - name: Set execution permissions
+        run: chmod +x main.py diagrame_analsis.py  # 賦予腳本執行權限
 
       - name: Get player price
         run: python main.py  # 執行 Python 腳本
@@ -29,16 +34,10 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
           git add .
-          git commit -m "Auto-update from GitHub Actions" || echo "No changes to commit"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+          git commit -m "Auto-update from GitHub Actions"
+          git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload generated image
-        uses: actions/upload-artifact@v3
-        with:
-          name: generated-diagram
-          path: diagram.png  # 確保這是正確的圖片路徑
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub Actions 內建權限推送變更
