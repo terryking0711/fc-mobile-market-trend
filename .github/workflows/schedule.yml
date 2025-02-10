@@ -24,13 +24,13 @@ jobs:
         run: pip install pandas numpy requests matplotlib bs4  # 直接安裝 pandas
 
       - name: Set execution permissions
-        run: chmod +x main.py diagrame_analsis.py  # 賦予腳本執行權限
+        run: chmod +x main.py trend image.py  # 賦予腳本執行權限
 
       - name: Get player price
         run: python main.py  # 執行 Python 腳本
 
       - name: Create image
-        run: python diagrame_analsis.py  # 執行 Python 腳本
+        run: python trend image.py  # 執行 Python 腳本
 
       - name: Commit and push changes
         run: |
