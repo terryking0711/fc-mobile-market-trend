@@ -3,11 +3,11 @@ import requests
 from bs4 import BeautifulSoup
 import time
 from datetime import datetime
-from prices-clawer import get_player_market_value
+from prices_clawer import get_player_market_value
 import re
 
 # 讀取CSV檔案
-df = pd.read_csv(r"fc-mobile-player-prices.csv")
+df = pd.read_csv(r"fc_mobile_player_prices.csv")
 
 def remove_leading_zeros(s: str) -> str:
     return re.sub(r'\b0+(?!0)(\d+)\b', r'\1', s)
@@ -26,5 +26,5 @@ for player,code in zip(df["player name"],df['code']):
     prices.append(market_value)
 # 將 prices 列表中的值賦給 df[current_time] 列
 df[current_time] = prices
-df.to_csv(r"fc-mobile-player-prices.csv", index=False)
+df.to_csv(r"fc_mobile_player_prices.csv", index=False)
 print(df)
