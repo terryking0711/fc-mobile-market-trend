@@ -4,8 +4,8 @@ import os
 import matplotlib.ticker as mtick
 #　pip freeze > requirements.txt
 # Load the CSV file
-file_path = r"fc mobile player prices.csv"  # Replace with your actual file path
-df = pd.read_csv(file_path)
+print("start_loading")
+df = pd.read_csv(r"fc mobile player prices.csv")
 print(df)
 # Preprocess data to make it suitable for plotting
 # Convert the wide format to a long format for easier plotting
